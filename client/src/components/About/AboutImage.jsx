@@ -40,25 +40,13 @@ const AboutImage = () => {
             <HiMapPin className="text-xl text-blue-600" />
 
             <span className="text-sm font-medium text-slate-700">
-              Bangladesh
+              Rajshahi, Bangladesh
             </span>
           </div>
 
-          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3">
-            <span>☕</span>
+         
 
-            <span className="text-sm font-medium text-slate-700">
-              Coffee + Code
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3">
-            <span>🌙</span>
-
-            <span className="text-sm font-medium text-slate-700">
-              Late Night Builder
-            </span>
-          </div>
+        
         </div>
       </div>
           {/* Tech */}
