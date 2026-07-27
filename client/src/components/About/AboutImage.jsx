@@ -1,52 +1,76 @@
 import { motion } from "framer-motion";
-import ExperienceCard from "./ExperienceCard";
-import StatCard from "../ui/StatCard";
-import {stats} from "./aboutData"
-
-import profile from "../../assets/images/profile.jpg"; // change your image path
+import {
+  HiMapPin,
+  HiSignal,
+} from "react-icons/hi2";
+import profile from "../../assets/images/profile.jpg";
+import CurrentFocus from "./CurrentFocus";
+import TechArsenal from "./TechArsenal";
 
 const AboutImage = () => {
   return (
-    <div className="flex flex-col items-center gap-8">
-      <div className="flex flex-wrap justify-center gap-4">
     <motion.div
       initial={{ opacity: 0, x: -60 }}
       whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7 }}
       viewport={{ once: true }}
-      className="relative flex justify-center"
+      transition={{ duration: 0.8 }}
+      className="relative mx-auto w-full max-w-md"
     >
-      {/* Background Glow */}
-      <div className="absolute -left-8 top-12 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl" />
+      {/* Glow */}
+      <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-indigo-500/10 blur-3xl" />
 
-      {/* Image Card */}
-      <div className="relative overflow-hidden rounded-[32px] border border-slate-200 bg-white p-4 shadow-xl">
+      {/* Card */}
+      <div className="relative overflow-hidden rounded-[32px] border border-slate-200 bg-white p-5 shadow-xl">
         <img
           src={profile}
           alt="Sagor"
-          className="h-[520px] w-[420px] rounded-[24px] object-cover"
+          className="h-[520px] w-full rounded-3xl object-cover"
         />
+
+        <div className="mt-6 space-y-3">
+          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3">
+            <HiSignal className="text-xl text-green-500" />
+
+            <span className="text-sm font-medium text-slate-700">
+              Open to Work
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3">
+            <HiMapPin className="text-xl text-blue-600" />
+
+            <span className="text-sm font-medium text-slate-700">
+              Bangladesh
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3">
+            <span>☕</span>
+
+            <span className="text-sm font-medium text-slate-700">
+              Coffee + Code
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3">
+            <span>🌙</span>
+
+            <span className="text-sm font-medium text-slate-700">
+              Late Night Builder
+            </span>
+          </div>
+        </div>
+      </div>
+          {/* Tech */}
+      <div className="mt-12">
+        <TechArsenal />
       </div>
 
-      {/* Floating Card */}
-      <div className="absolute -bottom-8 -right-6">
-        <ExperienceCard />
+      {/* Current Focus */}
+      <div className="mt-12">
+        <CurrentFocus />
       </div>
-
     </motion.div>
-    
-           <motion.div className="mt-12 grid grid-cols-2 gap-5">
-        {stats.map((item) => (
-          <StatCard
-            key={item.label}
-            value={item.value}
-            label={item.label}
-          />
-        ))}
-      </motion.div>
-      </div>
-      </div>
-
   );
 };
 

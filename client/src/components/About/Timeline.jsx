@@ -3,30 +3,23 @@ import { timeline } from "./aboutData";
 const Timeline = () => {
   return (
     <div className="space-y-8">
-      {timeline.map((item, index) => (
-        <div
-          key={index}
-          className="relative pl-10"
-        >
-          {/* Line */}
-          {index !== timeline.length - 1 && (
-            <span className="absolute left-[9px] top-8 h-full w-[2px] bg-slate-200" />
-          )}
+      {timeline.map((item) => (
+        <div key={item.year} className="flex gap-5">
+          <div className="mt-2 h-4 w-4 rounded-full bg-blue-600"></div>
 
-          {/* Dot */}
-          <span className="absolute left-0 top-1 h-5 w-5 rounded-full border-4 border-blue-600 bg-white" />
+          <div>
+            <p className="font-bold text-blue-600">
+              {item.year}
+            </p>
 
-          <span className="text-sm font-semibold text-blue-600">
-            {item.year}
-          </span>
+            <h3 className="mt-1 text-xl font-semibold">
+              {item.title}
+            </h3>
 
-          <h3 className="mt-1 text-xl font-bold text-slate-900">
-            {item.title}
-          </h3>
-
-          <p className="mt-2 leading-7 text-slate-600">
-            {item.description}
-          </p>
+            <p className="mt-2 text-slate-600">
+              {item.description}
+            </p>
+          </div>
         </div>
       ))}
     </div>

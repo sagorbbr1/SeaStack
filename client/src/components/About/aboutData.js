@@ -1,39 +1,34 @@
-export const timeline = [
-  {
-    year: "2023",
-    title: "Started Web Development",
-    description:
-      "Began learning HTML, CSS, JavaScript and built my first responsive websites.",
-  },
-  {
-    year: "2024",
-    title: "MERN Stack Journey",
-    description:
-      "Focused on React, Node.js, Express and MongoDB while building real-world projects.",
-  },
-  {
-    year: "2025",
-    title: "Portfolio & Freelancing",
-    description:
-      "Creating modern web applications and preparing for freelance and professional opportunities.",
-  },
-];
+import {
+  FaRocket,
+  FaCode,
+  FaLaptopCode,
+} from "react-icons/fa";
 
-export const stats = [
+export const journey = [
   {
-    value: "20+",
-    label: "Projects",
+    id: 1,
+    icon: FaRocket,
+    year: "2023",
+    title: "Started My Journey",
+    description:
+      "Learned HTML, CSS and JavaScript while building responsive websites and strengthening my programming fundamentals.",
   },
+
   {
-    value: "2+",
-    label: "Years Learning",
+    id: 2,
+    icon: FaCode,
+    year: "2024",
+    title: "MERN Stack Development",
+    description:
+      "Focused on React, Node.js, Express and MongoDB while creating full-stack applications with REST APIs and authentication.",
   },
+
   {
-    value: "15+",
-    label: "Technologies",
-  },
-  {
-    value: "100%",
-    label: "Responsive",
+    id: 3,
+    icon: FaLaptopCode,
+    year: "2025",
+    title: "Building Real Products",
+    description:
+      "Creating production-ready applications, improving UI/UX, and preparing for freelance and professional opportunities.",
   },
 ];
