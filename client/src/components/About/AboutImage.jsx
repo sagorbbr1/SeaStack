@@ -3,7 +3,7 @@ import {
   HiMapPin,
   HiSignal,
 } from "react-icons/hi2";
-import profile from "../../assets/images/profile.jpg";
+import profile from "../../assets/images/about.jpg";
 import CurrentFocus from "./CurrentFocus";
 import TechArsenal from "./TechArsenal";
 
