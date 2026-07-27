@@ -20,18 +20,20 @@ const techs = [
 const TechMarquee = () => {
   return (
     <section className="overflow-hidden border-y border-slate-200 bg-white py-5">
-      <div className="flex w-max marquee whitespace-nowrap gap-12">
-        {[...techs, ...techs].map((tech, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-2 text-slate-700 whitespace-nowrap"
-          >
-            <span className="text-2xl">{tech.icon}</span>
-            <span className="font-medium">{tech.name}</span>
-          </div>
-        ))}
-      </div>
-    </section>
+  <div className="overflow-hidden">
+    <div className="marquee flex w-max gap-12">
+      {[...techs, ...techs].map((tech, index) => (
+        <div
+          key={index}
+          className="flex shrink-0 items-center gap-2 whitespace-nowrap text-slate-700"
+        >
+          <span className="text-2xl">{tech.icon}</span>
+          <span className="font-medium">{tech.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
   );
 };
 
