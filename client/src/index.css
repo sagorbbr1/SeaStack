@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
-body{
-    font-family:'Inter',sans-serif;
+
+
+html,
+body {
+  overflow-x: hidden;
+  font-family:'Inter',sans-serif;
+
+
 }
 
 .marquee {
