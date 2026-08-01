@@ -9,7 +9,7 @@ const Services = () => {
   return (
     <Section
   
-      id="skills"
+      id="services"
       className="bg-slate-50"
     >
       <Heading
