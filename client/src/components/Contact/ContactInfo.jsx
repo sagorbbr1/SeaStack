@@ -9,11 +9,11 @@ const ContactInfo = () => {
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      <h3 className="text-3xl font-bold text-slate-900">
+      <h3 className="text-3xl font-bold text-slate-900 dark:text-white">
         Get In Touch
       </h3>
 
-      <p className="mt-5 leading-8 text-slate-600">
+      <p className="mt-5 leading-8 text-slate-600 dark:text-slate-400">
         I'm currently available for freelance work, collaborations,
         and exciting opportunities. Feel free to reach out anytime.
       </p>
@@ -28,18 +28,45 @@ const ContactInfo = () => {
               href={item.link || "#"}
               target={item.link?.startsWith("http") ? "_blank" : "_self"}
               rel="noreferrer"
-              className="group flex items-center gap-5 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500 hover:shadow-lg"
+              className="
+                group flex items-center gap-5 rounded-2xl
+                border border-slate-200 bg-white p-5
+                transition-all duration-300
+                hover:-translate-y-1
+                hover:border-blue-500
+                hover:shadow-lg
+
+                dark:border-slate-700
+                dark:bg-slate-900
+                dark:hover:border-blue-500
+                dark:hover:bg-slate-800
+              "
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
+              <div
+                className="
+                  flex h-14 w-14 items-center justify-center
+                  rounded-2xl
+                  bg-blue-50
+                  text-blue-600
+                  transition
+                  group-hover:bg-blue-600
+                  group-hover:text-white
+
+                  dark:bg-slate-800
+                  dark:text-blue-400
+                  dark:group-hover:bg-blue-600
+                  dark:group-hover:text-white
+                "
+              >
                 <Icon size={22} />
               </div>
 
               <div>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   {item.title}
                 </p>
 
-                <h4 className="font-semibold text-slate-900">
+                <h4 className="font-semibold text-slate-900 dark:text-white">
                   {item.value}
                 </h4>
               </div>
