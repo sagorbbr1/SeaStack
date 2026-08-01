@@ -5,12 +5,10 @@ import ServiceCard from "./ServiceCard";
 import { services } from "./servicesData";
 
 const Services = () => {
-
   return (
     <Section
-  
       id="services"
-      className="bg-slate-50"
+      className="bg-slate-50 dark:bg-slate-950 transition-colors duration-300"
     >
       <Heading
         badge="Services"
