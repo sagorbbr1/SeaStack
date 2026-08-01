@@ -2,17 +2,19 @@ import { motion } from "framer-motion";
 
 const HeroBackground = () => {
   return (
-    <div className="absolute inset-0 -z-50 overflow-hidden">
+    <div className="absolute inset-0 -z-50 overflow-hidden transition-colors duration-300">
 
       {/* Main Background */}
-      <div className="absolute inset-0 bg-[#F8FAFC]" />
+      <div className="absolute inset-0 bg-[#F8FAFC] dark:bg-slate-950 transition-colors duration-300" />
 
       {/* Grid Pattern */}
       <div
         className="
           absolute inset-0
           opacity-[0.35]
+          dark:opacity-[0.08]
           [background-image:linear-gradient(to_right,#dbeafe_1px,transparent_1px),linear-gradient(to_bottom,#dbeafe_1px,transparent_1px)]
+          dark:[background-image:linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)]
           [background-size:45px_45px]
         "
       />
@@ -36,6 +38,7 @@ const HeroBackground = () => {
           w-[420px]
           rounded-full
           bg-blue-500/20
+          dark:bg-blue-500/10
           blur-[120px]
         "
       />
@@ -59,11 +62,12 @@ const HeroBackground = () => {
           w-[480px]
           rounded-full
           bg-cyan-400/20
+          dark:bg-cyan-400/10
           blur-[140px]
         "
       />
 
-      {/* Center Gradient Blob */}
+      {/* Center Blob */}
       <motion.div
         animate={{
           rotate: [0, 360],
@@ -87,6 +91,9 @@ const HeroBackground = () => {
           from-blue-400/20
           via-cyan-300/20
           to-sky-300/20
+          dark:from-blue-500/10
+          dark:via-cyan-500/10
+          dark:to-indigo-500/10
           blur-[90px]
         "
       />
@@ -109,6 +116,7 @@ const HeroBackground = () => {
           rounded-full
           bg-blue-500
           opacity-40
+          dark:opacity-20
         "
       />
 
@@ -131,6 +139,7 @@ const HeroBackground = () => {
           rounded-full
           border
           border-blue-300/40
+          dark:border-blue-500/20
         "
       />
 
@@ -151,6 +160,7 @@ const HeroBackground = () => {
           w-20
           rounded-full
           bg-cyan-300/40
+          dark:bg-cyan-400/20
           blur-3xl
         "
       />
