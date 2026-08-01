@@ -184,18 +184,12 @@ const MobileMenu = ({ open, setOpen }) => {
               }}
               className="m-5 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-500 p-5 text-white"
             >
-              <h4 className="font-semibold">
+              <h4 className="font-semibold text-center">
                 Let's Build Together 🚀
               </h4>
 
             
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="mt-5 inline-flex rounded-xl bg-white px-4 py-2 text-sm font-semibold text-blue-600"
-              >
-                Contact Me
-              </a>
+    
             </motion.div>
 
           </motion.aside>
