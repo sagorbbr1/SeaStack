@@ -5,9 +5,11 @@ import ServiceCard from "./ServiceCard";
 import { services } from "./servicesData";
 
 const Services = () => {
+
   return (
     <Section
-      id="services"
+  
+      id="skills"
       className="bg-slate-50"
     >
       <Heading

@@ -4,9 +4,12 @@ import Section from "../ui/Section";
 import ContactInfo from "./ContactInfo";
 import ContactForm from "./ContactForm";
 
+
 const Contact = () => {
+
   return (
     <Section
+  
       id="contact"
       className="relative overflow-hidden bg-slate-50"
     >

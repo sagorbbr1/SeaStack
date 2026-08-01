@@ -4,7 +4,9 @@ import Heading from "../ui/Heading";
 import { projects } from "./projectsData";
 import ProjectCard from "./ProjectCard";
 
+
 const Projects = () => {
+
   return (
     <Section id="projects">
       <Heading

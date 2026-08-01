@@ -5,8 +5,10 @@ import AboutImage from "./AboutImage";
 import AboutContent from "./AboutContent";
 
 const About = () => {
+  
   return (
     <Section
+    
       id="about"
       className="relative overflow-hidden bg-slate-50"
     >

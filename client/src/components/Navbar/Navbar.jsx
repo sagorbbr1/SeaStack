@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FiMenu, FiDownload } from "react-icons/fi";
+import { FiDownload, FiMenu } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 import Container from "../Common/Container";
@@ -12,14 +12,12 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 40);
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -27,68 +25,102 @@ const Navbar = () => {
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 w-full z-50"
+        transition={{
+          duration: 0.7,
+          ease: "easeOut",
+        }}
+        className="fixed inset-x-0 top-0 z-50"
       >
         <Container>
-          <nav
-            className={`
-              mt-4 h-20 px-6
-              flex items-center justify-between
-              rounded-3xl
-              border border-white/30
-              transition-all duration-300
-              ${
-                scrolled
-                  ? "bg-white/80 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)]"
-                  : "bg-white/60 backdrop-blur-md"
-              }
-            `}
+          <motion.nav
+            animate={{
+              width: scrolled ? "100%" : "96%",
+            }}
+            transition={{
+              duration: 0.35,
+            }}
+            className={`mx-auto mt-5 flex h-20 items-center justify-between rounded-[28px] border px-7 transition-all duration-300 ${
+              scrolled
+                ? "border-white/50 bg-white/80 shadow-[0_20px_60px_rgba(15,23,42,.08)] backdrop-blur-2xl"
+                : "border-white/30 bg-white/60 backdrop-blur-xl"
+            }`}
           >
             {/* Logo */}
-            <a
-              href="/"
-              className="text-2xl font-bold tracking-tight"
+
+            <motion.a
+              href="#home"
+              whileHover={{
+                scale: 1.05,
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+              className="text-3xl font-black tracking-tight text-slate-900"
             >
-              Sagor<span className="text-blue-600">.</span>
-            </a>
+              Sagor
+              <span className="text-blue-600">.</span>
+            </motion.a>
 
             {/* Desktop Menu */}
+
             <DesktopMenu />
 
             {/* Right Side */}
-            <div className="flex items-center gap-4">
-              
+
+            <div className="flex items-center gap-3">
               {/* Resume */}
-              <a
+
+              <motion.a
+                whileHover={{
+                  y: -2,
+                }}
+                whileTap={{
+                  scale: 0.97,
+                }}
                 href="/resume.pdf"
-                className="hidden md:flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 hover:border-blue-500 transition"
+                download
+                className="hidden items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 font-medium text-slate-700 transition hover:border-blue-500 hover:text-blue-600 md:flex"
               >
                 <FiDownload />
+
                 Resume
-              </a>
+              </motion.a>
 
-              {/* Hire Me */}
-              <a
+              {/* CTA */}
+
+              <motion.a
+                whileHover={{
+                  scale: 1.04,
+                }}
+                whileTap={{
+                  scale: 0.97,
+                }}
                 href="#contact"
-                className="hidden md:flex px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
+                className="hidden rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:shadow-blue-500/40 md:flex"
               >
-                Hire Me
-              </a>
+                Let's Talk
+              </motion.a>
 
-              {/* Mobile Menu Button */}
-              <button
+              {/* Mobile */}
+
+              <motion.button
+                whileTap={{
+                  scale: 0.9,
+                }}
                 onClick={() => setOpen(true)}
-                className="lg:hidden text-2xl"
+                className="rounded-xl p-2 text-2xl transition hover:bg-slate-100 lg:hidden"
               >
                 <FiMenu />
-              </button>
+              </motion.button>
             </div>
-          </nav>
+          </motion.nav>
         </Container>
       </motion.header>
 
-      <MobileMenu open={open} setOpen={setOpen} />
+      <MobileMenu
+        open={open}
+        setOpen={setOpen}
+      />
     </>
   );
 };

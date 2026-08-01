@@ -6,10 +6,14 @@ import HeroCard from "./HeroCard";
 import HeroBackground from "./HeroBackground";
 import TechMarquee from "./TechMarquee";
 
+
 const Hero = () => {
+
+
   return (
     <>
       <section
+     
         id="home"
         className="relative overflow-hidden bg-[#F8FAFC] pt-28 lg:pt-36"
       >

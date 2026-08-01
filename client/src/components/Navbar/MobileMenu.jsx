@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiX } from "react-icons/fi";
-import navLinks from "../../constants/navLinks";
+import {navLinks} from "./navLinks";
 
 const backdrop = {
   hidden: { opacity: 0 },
