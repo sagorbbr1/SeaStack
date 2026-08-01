@@ -4,18 +4,25 @@ import JourneyCard from "./JourneyCard";
 const JourneyCards = () => {
   return (
     <section>
-      <h3 className="mb-6 text-2xl font-bold text-slate-900">
+      <h3
+        className="
+          mb-6 text-2xl font-bold
+          text-slate-900
+          dark:text-white
+        "
+      >
         My Journey
       </h3>
-<div className="flex flex-col gap-5">
-  {journey.map((item, index) => (
-    <JourneyCard
-      key={item.id}
-      item={item}
-      index={index}
-    />
-  ))}
-</div>
+
+      <div className="flex flex-col gap-5">
+        {journey.map((item, index) => (
+          <JourneyCard
+            key={item.id}
+            item={item}
+            index={index}
+          />
+        ))}
+      </div>
     </section>
   );
 };
