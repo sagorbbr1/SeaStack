@@ -93,7 +93,7 @@ const Navbar = () => {
 
               {/* Resume */}
 
-              <motion.a
+              {/* <motion.a
                 whileHover={{
                   y: -2,
                 }}
@@ -128,7 +128,7 @@ const Navbar = () => {
               >
                 <FiDownload />
                 Resume
-              </motion.a>
+              </motion.a> */}
 
               {/* CTA */}
 
