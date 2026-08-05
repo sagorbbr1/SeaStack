@@ -1,121 +1,10 @@
 import { motion } from "framer-motion";
 import { FaPaperPlane } from "react-icons/fa6";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
-const ContactForm = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(form);
-
-    setForm({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
-  };
-
-  return (
-    <motion.form
-      onSubmit={handleSubmit}
-      initial={{ opacity: 0, x: 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
-      className="
-        rounded-[32px]
-        border border-slate-200
-        bg-white/70
-        p-8
-        shadow-[0_20px_60px_rgba(15,23,42,.08)]
-        backdrop-blur-xl
-
-        dark:border-slate-700
-        dark:bg-slate-900/70
-        dark:shadow-black/20
-      "
-    >
-      <div className="grid gap-6 md:grid-cols-2">
-        <Input
-          label="Your Name"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-        />
-
-        <Input
-          label="Email Address"
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="mt-6">
-        <Input
-          label="Subject"
-          name="subject"
-          value={form.subject}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="mt-6">
-        <Textarea
-          label="Your Message"
-          name="message"
-          rows={6}
-          value={form.message}
-          onChange={handleChange}
-        />
-      </div>
-
-      <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="
-          mt-8
-          flex
-          w-full
-          items-center
-          justify-center
-          gap-3
-          rounded-2xl
-          bg-gradient-to-r
-          from-blue-600
-          to-cyan-500
-          py-4
-          font-semibold
-          text-white
-          shadow-lg
-          transition
-          hover:shadow-blue-500/40
-        "
-      >
-        <FaPaperPlane />
-        Send Message
-      </motion.button>
-    </motion.form>
-  );
-};
-
-export default ContactForm;
 
 function Input({
   label,
@@ -132,6 +21,7 @@ function Input({
         value={value}
         onChange={onChange}
         required
+        autoComplete="off"
         placeholder=" "
         className="
           peer
@@ -144,14 +34,17 @@ function Input({
           px-4
           text-slate-900
           outline-none
-          transition
+          transition-all
+          duration-300
           focus:border-blue-500
+          focus:ring-4
+          focus:ring-blue-500/10
 
           dark:border-slate-700
           dark:bg-slate-900
           dark:text-white
-          dark:placeholder:text-slate-500
           dark:focus:border-cyan-400
+          dark:focus:ring-cyan-400/10
         "
       />
 
@@ -202,10 +95,12 @@ function Textarea({
         value={value}
         onChange={onChange}
         required
+        maxLength={500}
         placeholder=" "
         className="
           peer
           w-full
+          resize-none
           rounded-xl
           border
           border-slate-300
@@ -214,14 +109,17 @@ function Textarea({
           py-4
           text-slate-900
           outline-none
-          transition
+          transition-all
+          duration-300
           focus:border-blue-500
+          focus:ring-4
+          focus:ring-blue-500/10
 
           dark:border-slate-700
           dark:bg-slate-900
           dark:text-white
-          dark:placeholder:text-slate-500
           dark:focus:border-cyan-400
+          dark:focus:ring-cyan-400/10
         "
       />
 
@@ -256,3 +154,187 @@ function Textarea({
     </div>
   );
 }
+
+
+
+
+const ContactForm = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({
+    type: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+
+    if (status.message) {
+      setStatus({
+        type: "",
+        message: "",
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (loading) return;
+
+    setLoading(true);
+
+    try {
+      await emailjs.send(
+        "service_vc1xrkm",
+        "template_0iextna",
+        {
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+        },
+        "Q5LpSBb9Rfe74T2Su"
+      );
+
+      setStatus({
+        type: "success",
+        message: "✅ Message sent successfully!",
+      });
+
+      setForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+
+      setStatus({
+        type: "error",
+        message: "❌ Failed to send message. Please try again.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <motion.form
+      onSubmit={handleSubmit}
+      initial={{ opacity: 0, x: 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+      className="
+        rounded-[32px]
+        border border-slate-200
+        bg-white/70
+        p-8
+        shadow-[0_20px_60px_rgba(15,23,42,.08)]
+        backdrop-blur-xl
+
+        dark:border-slate-700
+        dark:bg-slate-900/70
+        dark:shadow-black/20
+      "
+    >
+      {status.message && (
+        <div
+          className={`mb-6 rounded-xl p-4 text-sm font-medium ${
+            status.type === "success"
+              ? "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400"
+              : "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400"
+          }`}
+        >
+          {status.message}
+        </div>
+      )}
+
+      <div className="grid gap-6 md:grid-cols-2">
+        <Input
+          label="Your Name"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+        />
+
+        <Input
+          label="Email Address"
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="mt-6">
+        <Input
+          label="Subject"
+          name="subject"
+          value={form.subject}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="mt-6">
+        <Textarea
+          label="Your Message"
+          name="message"
+          rows={6}
+          value={form.message}
+          onChange={handleChange}
+        />
+
+        <p className="mt-2 text-right text-xs text-slate-500 dark:text-slate-400">
+          {form.message.length}/500
+        </p>
+      </div>
+
+      <motion.button
+        type="submit"
+        disabled={loading}
+        whileHover={!loading ? { scale: 1.02 } : {}}
+        whileTap={!loading ? { scale: 0.98 } : {}}
+        className="
+          mt-8
+          flex
+          w-full
+          items-center
+          justify-center
+          gap-3
+          rounded-2xl
+          bg-gradient-to-r
+          from-blue-600
+          via-sky-500
+          to-cyan-500
+          py-4
+          font-semibold
+          text-white
+          shadow-lg
+          transition
+          hover:shadow-blue-500/40
+          disabled:cursor-not-allowed
+          disabled:opacity-70
+        "
+      >
+        <FaPaperPlane />
+
+        {loading ? "Sending..." : "Send Message"}
+      </motion.button>
+    </motion.form>
+  );
+};
+
+export default ContactForm;
+
