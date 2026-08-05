@@ -3,9 +3,6 @@ import { FaPaperPlane } from "react-icons/fa6";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 
-
-
-
 function Input({
   label,
   name,
@@ -16,6 +13,7 @@ function Input({
   return (
     <div className="relative">
       <input
+        id={name}
         type={type}
         name={name}
         value={value}
@@ -49,7 +47,9 @@ function Input({
       />
 
       <label
+        htmlFor={name}
         className="
+          pointer-events-none
           absolute
           left-4
           top-4
@@ -90,6 +90,7 @@ function Textarea({
   return (
     <div className="relative">
       <textarea
+        id={name}
         rows={rows}
         name={name}
         value={value}
@@ -124,7 +125,9 @@ function Textarea({
       />
 
       <label
+        htmlFor={name}
         className="
+          pointer-events-none
           absolute
           left-4
           top-4
@@ -155,9 +158,6 @@ function Textarea({
   );
 }
 
-
-
-
 const ContactForm = () => {
   const [form, setForm] = useState({
     name: "",
@@ -167,16 +167,17 @@ const ContactForm = () => {
   });
 
   const [loading, setLoading] = useState(false);
+
   const [status, setStatus] = useState({
     type: "",
     message: "",
   });
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
+    setForm((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
 
     if (status.message) {
       setStatus({
@@ -208,7 +209,7 @@ const ContactForm = () => {
 
       setStatus({
         type: "success",
-        message: "✅ Message sent successfully!",
+        message: "Message sent successfully 🚀",
       });
 
       setForm({
@@ -217,12 +218,12 @@ const ContactForm = () => {
         subject: "",
         message: "",
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
 
       setStatus({
         type: "error",
-        message: "❌ Failed to send message. Please try again.",
+        message: "Failed to send message.",
       });
     } finally {
       setLoading(false);
@@ -238,7 +239,8 @@ const ContactForm = () => {
       transition={{ duration: 0.7 }}
       className="
         rounded-[32px]
-        border border-slate-200
+        border
+        border-slate-200
         bg-white/70
         p-8
         shadow-[0_20px_60px_rgba(15,23,42,.08)]
@@ -246,12 +248,11 @@ const ContactForm = () => {
 
         dark:border-slate-700
         dark:bg-slate-900/70
-        dark:shadow-black/20
       "
     >
       {status.message && (
         <div
-          className={`mb-6 rounded-xl p-4 text-sm font-medium ${
+          className={`mb-6 rounded-xl px-4 py-3 text-sm font-medium ${
             status.type === "success"
               ? "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400"
               : "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400"
@@ -296,12 +297,14 @@ const ContactForm = () => {
           onChange={handleChange}
         />
 
-        <p className="mt-2 text-right text-xs text-slate-500 dark:text-slate-400">
-          {form.message.length}/500
-        </p>
+        <div className="mt-2 flex justify-end">
+          <span className="text-xs text-slate-500 dark:text-slate-400">
+            {form.message.length}/500
+          </span>
+        </div>
       </div>
 
-      <motion.button
+            <motion.button
         type="submit"
         disabled={loading}
         whileHover={!loading ? { scale: 1.02 } : {}}
@@ -322,13 +325,16 @@ const ContactForm = () => {
           font-semibold
           text-white
           shadow-lg
-          transition
+          transition-all
+          duration-300
           hover:shadow-blue-500/40
           disabled:cursor-not-allowed
           disabled:opacity-70
         "
       >
-        <FaPaperPlane />
+        <FaPaperPlane
+          className={loading ? "animate-pulse" : ""}
+        />
 
         {loading ? "Sending..." : "Send Message"}
       </motion.button>
@@ -337,4 +343,3 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
-
