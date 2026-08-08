@@ -15,55 +15,20 @@ const ProjectCard = ({ project, reverse }) => {
       }`}
     >
       {/* Image */}
-      <div className="group">
-        <div
-          className="
-            overflow-hidden
-            rounded-3xl
-            border
-            border-slate-200
-            bg-white
-            shadow-lg
-            transition-all
-            duration-300
-            group-hover:shadow-2xl
-
-            dark:border-slate-800
-            dark:bg-slate-900
-            dark:shadow-black/30
-          "
-        >
-          {/* Browser Header */}
-          <div
-            className="
-              flex items-center gap-2
-              border-b border-slate-200
-              bg-slate-50
-              px-5 py-3
-
-              dark:border-slate-800
-              dark:bg-slate-950
-            "
-          >
-            <span className="h-3 w-3 rounded-full bg-red-400"></span>
-            <span className="h-3 w-3 rounded-full bg-yellow-400"></span>
-            <span className="h-3 w-3 rounded-full bg-green-400"></span>
-          </div>
-
-          {/* Screenshot */}
-          <div className="overflow-hidden">
-            <ProjectImage project={project} />
-          </div>
-        </div>
+      <div>
+        <ProjectImage project={project} />
       </div>
 
       {/* Content */}
       <div>
+        {/* Badge */}
         <span
           className="
+            inline-flex
             rounded-full
             bg-blue-50
-            px-4 py-2
+            px-4
+            py-2
             text-sm
             font-semibold
             text-blue-600
@@ -75,6 +40,7 @@ const ProjectCard = ({ project, reverse }) => {
           Featured Project
         </span>
 
+        {/* Title */}
         <h3
           className="
             mt-6
@@ -88,6 +54,7 @@ const ProjectCard = ({ project, reverse }) => {
           {project.title}
         </h3>
 
+        {/* Description */}
         <p
           className="
             mt-6
@@ -101,12 +68,14 @@ const ProjectCard = ({ project, reverse }) => {
         </p>
 
         {/* Technologies */}
-        <div className="mt-8 flex flex-wrap gap-3">
-          <ProjectTags technologies={project.technologies} />
+        <div className="mt-8">
+          <ProjectTags
+            technologies={project.technologies}
+          />
         </div>
 
         {/* Buttons */}
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div className="mt-10">
           <ProjectButtons
             github={project.github}
             live={project.live}

@@ -33,7 +33,8 @@ const ProjectImage = ({ project }) => {
       {/* Glow */}
       <div
         className="
-          absolute inset-0
+          absolute
+          inset-0
           opacity-0
           transition-opacity
           duration-500
@@ -53,12 +54,16 @@ const ProjectImage = ({ project }) => {
       {/* Browser Header */}
       <div
         className="
-          relative z-10
-          flex items-center gap-2
+          relative
+          z-10
+          flex
+          items-center
+          gap-2
           border-b
           border-slate-200
           bg-slate-50
-          px-5 py-3
+          px-5
+          py-3
 
           dark:border-slate-800
           dark:bg-slate-950
@@ -73,7 +78,8 @@ const ProjectImage = ({ project }) => {
       <div className="relative overflow-hidden">
         <img
           src={project.image}
-          alt={project.title}
+          alt={`${project.title} project preview`}
+          loading="lazy"
           className="
             w-full
             transition-transform
@@ -85,32 +91,37 @@ const ProjectImage = ({ project }) => {
         {/* Overlay */}
         <div
           className="
-            absolute inset-0
-            flex items-center justify-center gap-4
-
+            absolute
+            inset-0
+            flex
+            items-center
+            justify-center
+            gap-4
             bg-slate-950/70
             backdrop-blur-sm
-
             opacity-0
             transition-all
             duration-500
-
             group-hover:opacity-100
           "
         >
+          {/* Live Demo */}
           <a
             href={project.live}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            aria-label={`View ${project.title} live demo`}
             className="
-              flex h-12 w-12 items-center justify-center
+              flex
+              h-12
+              w-12
+              items-center
+              justify-center
               rounded-xl
               bg-white
               text-slate-900
-
               transition-all
               duration-300
-
               hover:scale-110
               hover:bg-blue-600
               hover:text-white
@@ -119,19 +130,23 @@ const ProjectImage = ({ project }) => {
             <FaArrowUpRightFromSquare />
           </a>
 
+          {/* GitHub */}
           <a
             href={project.github}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            aria-label={`View ${project.title} source code`}
             className="
-              flex h-12 w-12 items-center justify-center
+              flex
+              h-12
+              w-12
+              items-center
+              justify-center
               rounded-xl
               bg-white
               text-slate-900
-
               transition-all
               duration-300
-
               hover:scale-110
               hover:bg-slate-900
               hover:text-white

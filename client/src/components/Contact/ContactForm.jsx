@@ -195,18 +195,17 @@ const ContactForm = () => {
     setLoading(true);
 
     try {
-      await emailjs.send(
-        "service_vc1xrkm",
-        "template_0iextna",
-        {
-          name: form.name,
-          email: form.email,
-          subject: form.subject,
-          message: form.message,
-        },
-        "Q5LpSBb9Rfe74T2Su"
-      );
-
+     await emailjs.send(
+  import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  {
+    name: form.name,
+    email: form.email,
+    subject: form.subject,
+    message: form.message,
+  },
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+);
       setStatus({
         type: "success",
         message: "Message sent successfully 🚀",

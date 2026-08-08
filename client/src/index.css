@@ -27,3 +27,17 @@ body,
     transform: translateX(-50%);
   }
 }
+
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    cursor: none;
+  }
+}

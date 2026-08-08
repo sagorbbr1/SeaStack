@@ -20,7 +20,7 @@ const socials = [
   },
   {
     icon: HiOutlineMail,
-    href: "mailto:youremail@gmail.com",
+    href: "mailto:sagorbbr1@gmail.com",
   },
 ];
 
