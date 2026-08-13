@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { FaPaperPlane } from "react-icons/fa6";
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
+
+const API = import.meta.env.VITE_API_URL;
 
 function Input({
   label,
@@ -195,17 +196,20 @@ const ContactForm = () => {
     setLoading(true);
 
     try {
-     await emailjs.send(
-  import.meta.env.VITE_EMAILJS_SERVICE_ID,
-  import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-  {
-    name: form.name,
-    email: form.email,
-    subject: form.subject,
-    message: form.message,
-  },
-  import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-);
+      const response = await fetch(`${API}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to send message.");
+      }
+
       setStatus({
         type: "success",
         message: "Message sent successfully 🚀",
@@ -217,12 +221,13 @@ const ContactForm = () => {
         subject: "",
         message: "",
       });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error("Contact form error:", error);
 
       setStatus({
         type: "error",
-        message: "Failed to send message.",
+        message:
+          error.message || "Failed to send message. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -249,6 +254,7 @@ const ContactForm = () => {
         dark:bg-slate-900/70
       "
     >
+      {/* Status Message */}
       {status.message && (
         <div
           className={`mb-6 rounded-xl px-4 py-3 text-sm font-medium ${
@@ -261,6 +267,7 @@ const ContactForm = () => {
         </div>
       )}
 
+      {/* Name + Email */}
       <div className="grid gap-6 md:grid-cols-2">
         <Input
           label="Your Name"
@@ -278,6 +285,7 @@ const ContactForm = () => {
         />
       </div>
 
+      {/* Subject */}
       <div className="mt-6">
         <Input
           label="Subject"
@@ -287,6 +295,7 @@ const ContactForm = () => {
         />
       </div>
 
+      {/* Message */}
       <div className="mt-6">
         <Textarea
           label="Your Message"
@@ -303,7 +312,8 @@ const ContactForm = () => {
         </div>
       </div>
 
-            <motion.button
+      {/* Submit */}
+      <motion.button
         type="submit"
         disabled={loading}
         whileHover={!loading ? { scale: 1.02 } : {}}

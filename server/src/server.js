@@ -1,12 +1,10 @@
-import dns from "node:dns/promises"; // or require("node:dns/promises")
-dns.setServers(["1.1.1.1", "8.8.8.8"]);
+import "dotenv/config";
 
-
-import dotenv from "dotenv";
+import dns from "node:dns/promises";
 import app from "./app.js";
 import connectDB from "./config/db.js";
 
-dotenv.config();
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 console.log("🔧 Environment Variables Loaded:");
 console.log(`PORT: ${process.env.PORT}`);
@@ -22,6 +20,7 @@ const startServer = async () => {
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`🌐 http://localhost:${PORT}`);
+      console.log(`🔗 Client URL: ${process.env.CLIENT_URL}`);
     });
   } catch (error) {
     console.error("❌ Failed to start server:", error.message);

@@ -28,7 +28,7 @@ body,
   }
 }
 
-@media (pointer: fine) {
+/* @media (pointer: fine) {
   body {
     cursor: none;
   }
@@ -40,4 +40,4 @@ body,
   select {
     cursor: none;
   }
-}
+} */

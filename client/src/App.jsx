@@ -1,25 +1,62 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { ThemeProvider } from "./context/ThemeContext";
+import { ActiveSectionProvider } from "./context/ActiveSectionContext";
+
 import BackToTop from "./components/ui/BackToTop";
 import ScrollProgress from "./components/ui/ScrollProgress";
-import Home from "./pages/Home";
-import { ActiveSectionProvider } from "./context/ActiveSectionContext";
 import Loader from "./components/ui/Loader";
 import CustomCursor from "./components/ui/CustomCursor";
 
-function App() {
-  
-  return  <ThemeProvider>
-  <ActiveSectionProvider>
-          <Loader />
-            <CustomCursor />
-    <ScrollProgress />
-    <Home />
-    <BackToTop />
-  </ActiveSectionProvider>
-  </ThemeProvider>
+import Home from "./pages/Home";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminMessages from "./pages/AdminMessages";
 
-  
-  
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminLayout from "./components/admin/AdminLayout";
+import NotFound from "./pages/NotFound";
+function App() {
+  return (
+    <BrowserRouter>
+      <ThemeProvider>
+        <ActiveSectionProvider>
+          <Loader />
+          {/* <CustomCursor /> */}
+          <ScrollProgress />
+
+          <Routes>
+            {/* Public */}
+            <Route path="/" element={<Home />} />
+
+            {/* Admin Login */}
+            <Route
+              path="/admin/login"
+              element={<AdminLogin />}
+            />
+
+            {/* Protected Admin */}
+            <Route element={<ProtectedRoute />}>
+              <Route element={<AdminLayout />}>
+                <Route
+                  path="/admin/dashboard"
+                  element={<AdminDashboard />}
+                />
+
+                <Route
+                  path="/admin/messages"
+                  element={<AdminMessages />}
+                />
+              </Route>
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+
+          <BackToTop />
+        </ActiveSectionProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
 }
 
 export default App;

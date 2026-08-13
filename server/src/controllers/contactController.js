@@ -1,6 +1,11 @@
 import Contact from "../models/Contact.js";
 import validator from "validator";
 import sendContactEmail from "../utils/sendEmail.js";
+
+// ==========================================
+// CREATE CONTACT - PUBLIC
+// ==========================================
+
 const createContact = async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
@@ -57,13 +62,17 @@ const createContact = async (req, res) => {
       email: cleanEmail,
       subject: cleanSubject,
       message: cleanMessage,
+      status: "unread",
     });
-await sendContactEmail({
-  name: cleanName,
-  email: cleanEmail,
-  subject: cleanSubject,
-  message: cleanMessage,
-});
+
+    // Send email notification
+    await sendContactEmail({
+      name: cleanName,
+      email: cleanEmail,
+      subject: cleanSubject,
+      message: cleanMessage,
+    });
+
     return res.status(201).json({
       success: true,
       message: "Your message has been sent successfully.",
@@ -79,10 +88,15 @@ await sendContactEmail({
   }
 };
 
+// ==========================================
+// GET ALL CONTACTS - ADMIN
+// ==========================================
+
 const getContacts = async (req, res) => {
   try {
-    const contacts = await Contact.find()
-      .sort({ createdAt: -1 });
+    const contacts = await Contact.find().sort({
+      createdAt: -1,
+    });
 
     return res.status(200).json({
       success: true,
@@ -97,6 +111,127 @@ const getContacts = async (req, res) => {
     });
   }
 };
+
+// ==========================================
+// GET CONTACT STATS - ADMIN
+// ==========================================
+
+const getContactStats = async (req, res) => {
+  try {
+    const total = await Contact.countDocuments();
+
+    const unread = await Contact.countDocuments({
+      status: "unread",
+    });
+
+    const read = await Contact.countDocuments({
+      status: "read",
+    });
+
+    const replied = await Contact.countDocuments({
+      status: "replied",
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        total,
+        unread,
+        read,
+        replied,
+      },
+    });
+  } catch (error) {
+    console.error("Get contact stats error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch contact statistics.",
+    });
+  }
+};
+
+// ==========================================
+// MARK AS READ - ADMIN
+// ==========================================
+
+const markAsRead = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const contact = await Contact.findByIdAndUpdate(
+      id,
+      { status: "read" },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!contact) {
+      return res.status(404).json({
+        success: false,
+        message: "Contact not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Message marked as read.",
+      data: contact,
+    });
+  } catch (error) {
+    console.error("Mark as read error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update message.",
+    });
+  }
+};
+
+// ==========================================
+// MARK AS REPLIED - ADMIN
+// ==========================================
+
+const markAsReplied = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const contact = await Contact.findByIdAndUpdate(
+      id,
+      { status: "replied" },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!contact) {
+      return res.status(404).json({
+        success: false,
+        message: "Contact not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Message marked as replied.",
+      data: contact,
+    });
+  } catch (error) {
+    console.error("Mark as replied error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update message.",
+    });
+  }
+};
+
+// ==========================================
+// DELETE CONTACT - ADMIN
+// ==========================================
 
 const deleteContact = async (req, res) => {
   try {
@@ -125,7 +260,11 @@ const deleteContact = async (req, res) => {
   }
 };
 
-
-
-
-export { createContact, getContacts, deleteContact };
+export {
+  createContact,
+  getContacts,
+  getContactStats,
+  markAsRead,
+  markAsReplied,
+  deleteContact,
+};
