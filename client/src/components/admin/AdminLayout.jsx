@@ -5,6 +5,7 @@ import {
   FaArrowRightFromBracket,
   FaBars,
   FaXmark,
+  FaFolderOpen,
 } from "react-icons/fa6";
 import { useState } from "react";
 
@@ -28,6 +29,11 @@ const AdminLayout = () => {
       path: "/admin/messages",
       icon: FaEnvelope,
     },
+     {
+      label: "Projects",
+      path: "/admin/projects",
+      icon: FaFolderOpen ,
+    }
   ];
 
   return (

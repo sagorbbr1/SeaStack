@@ -16,6 +16,8 @@ import AdminMessages from "./pages/AdminMessages";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminLayout from "./components/admin/AdminLayout";
 import NotFound from "./pages/NotFound";
+import AdminProjects from "./pages/AdminProjects";
+import AdminProjectForm from "./pages/AdminProjectForm";
 function App() {
   return (
     <BrowserRouter>
@@ -47,6 +49,13 @@ function App() {
                   path="/admin/messages"
                   element={<AdminMessages />}
                 />
+                <Route path="/admin/projects" element={<AdminProjects />} />
+                <Route path="/admin/projects/add" element={<AdminProjectForm />} />
+
+<Route
+  path="/admin/projects/edit/:id"
+  element={<AdminProjectForm />}
+/>
               </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
