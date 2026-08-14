@@ -8,18 +8,18 @@ import ScrollProgress from "./components/ui/ScrollProgress";
 import Loader from "./components/ui/Loader";
 import CustomCursor from "./components/ui/CustomCursor";
 
-import Home from "./pages/Home";
-import AdminLogin from "./pages/AdminLogin";
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminMessages from "./pages/AdminMessages";
+import Home from "./pages/Home/Home";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminMessages from "./pages/admin/AdminMessages";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminLayout from "./components/admin/AdminLayout";
 import NotFound from "./pages/NotFound";
-import AdminProjects from "./pages/AdminProjects";
-import AdminProjectForm from "./pages/AdminProjectForm";
-import AdminBlogs from "./pages/AdminBlogs";
-import AdminBlogForm from "./pages/AdminBlogForm";
+import AdminProjects from "./pages/admin/AdminProjects";
+import AdminProjectForm from "./pages/admin/AdminProjectForm";
+import AdminBlogs from "./pages/admin/AdminBlogs";
+import AdminBlogForm from "./pages/admin/AdminBlogForm";
 import SingleBlog from "./pages/SingleBlog";
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
       <ThemeProvider>
         <ActiveSectionProvider>
           <Loader />
-          {/* <CustomCursor /> */}
+          <CustomCursor />
           <ScrollProgress />
 
           <Routes>

@@ -29,7 +29,7 @@ const Blog = () => {
 
   return (
     <section
-      id="blog"
+      id="blogs"
       className="relative overflow-hidden bg-white py-24 dark:bg-slate-950"
     >
       {/* Background glow */}
