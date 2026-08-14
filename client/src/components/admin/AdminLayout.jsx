@@ -6,6 +6,7 @@ import {
   FaBars,
   FaXmark,
   FaFolderOpen,
+  FaPenToSquare
 } from "react-icons/fa6";
 import { useState } from "react";
 
@@ -33,6 +34,11 @@ const AdminLayout = () => {
       label: "Projects",
       path: "/admin/projects",
       icon: FaFolderOpen ,
+    },
+    {
+      label: "Blogs",
+      path: "/admin/blogs",
+      icon: FaPenToSquare ,
     }
   ];
 

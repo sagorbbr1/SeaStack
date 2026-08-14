@@ -7,6 +7,7 @@ import Contact from "../components/Contact/Contact";
 import Footer from "../components/Footer/Footer";
 import useScrollSpy from "../hooks/useScrollSpy";
 import Skills from "../components/Skills/Skills";
+import Blog from "../components/Blog/Blog";
 
 const Home = () => {
    useScrollSpy();
@@ -17,6 +18,7 @@ const Home = () => {
       <About />
       <Skills />
       <Projects />
+      <Blog />
       <Services />
       <Contact />
       <Footer />

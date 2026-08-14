@@ -18,6 +18,9 @@ import AdminLayout from "./components/admin/AdminLayout";
 import NotFound from "./pages/NotFound";
 import AdminProjects from "./pages/AdminProjects";
 import AdminProjectForm from "./pages/AdminProjectForm";
+import AdminBlogs from "./pages/AdminBlogs";
+import AdminBlogForm from "./pages/AdminBlogForm";
+import SingleBlog from "./pages/SingleBlog";
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +33,10 @@ function App() {
           <Routes>
             {/* Public */}
             <Route path="/" element={<Home />} />
+            <Route
+  path="/blog/:slug"
+  element={<SingleBlog />}
+/>
 
             {/* Admin Login */}
             <Route
@@ -55,6 +62,17 @@ function App() {
 <Route
   path="/admin/projects/edit/:id"
   element={<AdminProjectForm />}
+/>
+
+<Route path="/admin/blogs" element={<AdminBlogs />} />
+<Route
+  path="/admin/blogs/add"
+  element={<AdminBlogForm />}
+/>
+
+<Route
+  path="/admin/blogs/edit/:id"
+  element={<AdminBlogForm />}
 />
               </Route>
             </Route>
