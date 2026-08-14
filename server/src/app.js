@@ -5,6 +5,7 @@ import helmet from "helmet";
 import contactRoutes from "./routes/contactRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
+import blogRoutes from "./routes/blogRoutes.js";
 const app = express();
 
 app.use(helmet());
@@ -12,16 +13,27 @@ app.use(helmet());
 // CORS
 // ==========================================
 
-const allowedOrigin = "http://localhost:5173";
+import cors from "cors";
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://sagor.tech",
+  "https://www.sagor.tech",
+];
 
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(express.json({ limit: "10kb" }));
 
 app.use(
@@ -41,7 +53,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/contact", contactRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
-
+app.use("/api/blogs", blogRoutes);
 app.use((req, res) => {
   res.status(404).json({
     success: false,
