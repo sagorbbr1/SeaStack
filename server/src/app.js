@@ -13,8 +13,6 @@ app.use(helmet());
 // CORS
 // ==========================================
 
-import cors from "cors";
-
 const allowedOrigins = [
   "http://localhost:5173",
   "https://sagor.tech",
