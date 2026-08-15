@@ -23,14 +23,17 @@ import AboutPage from "./pages/AboutPage/AboutPage";
 import SkillsPage from "./pages/SkillsPage/SkillsPage";
 import ScrollToHash from "./components/ui/ScrollToHash";
 import BlogPage from "./pages/BlogPage/BlogPage";
+import ScrollToTop from "./components/ui/ScrollToTop";
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
         <ActiveSectionProvider>
+          <ScrollToTop />
+          <ScrollToHash />
+
           <Loader />
           <CustomCursor />
-           <ScrollToHash />
           <ScrollProgress />
 
           <Routes>
@@ -39,18 +42,18 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="/blogs" element={<BlogPage />} />
-            <Route
-  path="/blog/:slug"
-  element={<SingleBlog />}
-/>
 
-            {/* Admin Login */}
+            <Route
+              path="/blog/:slug"
+              element={<SingleBlog />}
+            />
+
+            {/* Admin */}
             <Route
               path="/admin/login"
               element={<AdminLogin />}
             />
 
-            {/* Protected Admin */}
             <Route element={<ProtectedRoute />}>
               <Route element={<AdminLayout />}>
                 <Route
@@ -62,26 +65,39 @@ function App() {
                   path="/admin/messages"
                   element={<AdminMessages />}
                 />
-                <Route path="/admin/projects" element={<AdminProjects />} />
-                <Route path="/admin/projects/add" element={<AdminProjectForm />} />
 
-<Route
-  path="/admin/projects/edit/:id"
-  element={<AdminProjectForm />}
-/>
+                <Route
+                  path="/admin/projects"
+                  element={<AdminProjects />}
+                />
 
-<Route path="/admin/blogs" element={<AdminBlogs />} />
-<Route
-  path="/admin/blogs/add"
-  element={<AdminBlogForm />}
-/>
+                <Route
+                  path="/admin/projects/add"
+                  element={<AdminProjectForm />}
+                />
 
-<Route
-  path="/admin/blogs/edit/:id"
-  element={<AdminBlogForm />}
-/>
+                <Route
+                  path="/admin/projects/edit/:id"
+                  element={<AdminProjectForm />}
+                />
+
+                <Route
+                  path="/admin/blogs"
+                  element={<AdminBlogs />}
+                />
+
+                <Route
+                  path="/admin/blogs/add"
+                  element={<AdminBlogForm />}
+                />
+
+                <Route
+                  path="/admin/blogs/edit/:id"
+                  element={<AdminBlogForm />}
+                />
               </Route>
             </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
 
@@ -91,5 +107,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;

@@ -4,14 +4,18 @@ import { navLinks } from "./navLinks";
 import { useActiveSection } from "../../context/ActiveSectionContext";
 
 const DesktopMenu = () => {
-  const { activeSection } = useActiveSection();
+  const { activeSection, setActiveSection } = useActiveSection();
   const location = useLocation();
 
+  const handleNavClick = (item) => {
+    if (item.href.includes("#")) {
+      const sectionId = item.href.split("#")[1];
+      setActiveSection(sectionId);
+    }
+  };
+
   return (
-    <motion.div
-      initial={false}
-      className="hidden items-center gap-2 lg:flex"
-    >
+    <nav className="hidden items-center gap-1 lg:flex">
       {navLinks.map((item) => {
         const isSectionLink = item.href.includes("#");
 
@@ -20,65 +24,58 @@ const DesktopMenu = () => {
           : "";
 
         const active = isSectionLink
-          ? location.pathname === "/" && activeSection === sectionId
+          ? location.pathname === "/" &&
+            activeSection === sectionId
           : location.pathname === item.href;
 
         return (
           <Link
             key={item.name}
             to={item.href}
+            onClick={() => handleNavClick(item)}
             className={`
-              relative rounded-xl px-5 py-3 font-medium
+              relative isolate px-5 py-3
+              text-[15px] font-medium
               transition-colors duration-200
               ${
                 active
                   ? "text-blue-600 dark:text-blue-400"
-                  : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
+                  : `
+                    text-slate-600
+                    hover:text-slate-900
+                    dark:text-slate-300
+                    dark:hover:text-white
+                  `
               }
             `}
           >
-            {item.name}
-
+            {/* One smooth moving indicator */}
             {active && (
-              <>
-                <motion.div
-                  layoutId="nav-bg"
-                  initial={false}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 28,
-                  }}
-                  className="
-                    absolute inset-0 -z-10
-                    rounded-xl
-                    bg-blue-50
-                    dark:bg-blue-500/10
-                  "
-                />
-
-                <motion.div
-                  layoutId="nav-line"
-                  initial={false}
-                  transition={{
-                    duration: 0.22,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="
-                    absolute bottom-1
-                    left-4 right-4
-                    h-[3px]
-                    rounded-full
-                    bg-blue-600
-                    dark:bg-blue-400
-                  "
-                />
-              </>
+              <motion.span
+                layoutId="active-nav-item"
+                initial={false}
+                transition={{
+                  type: "spring",
+                  stiffness: 180,
+                  damping: 22,
+                  mass: 0.8,
+                }}
+                className="
+                  absolute inset-0 -z-10
+                  rounded-xl
+                  bg-slate-100/80
+                  dark:bg-white/[0.07]
+                "
+              />
             )}
+
+            <span className="relative z-10">
+              {item.name}
+            </span>
           </Link>
         );
       })}
-    </motion.div>
+    </nav>
   );
 };
 
