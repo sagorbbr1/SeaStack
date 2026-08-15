@@ -11,6 +11,10 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const [hasAnimated, setHasAnimated] = useState(() => {
+    return sessionStorage.getItem("navbarAnimated") === "true";
+  });
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
@@ -27,17 +31,19 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!hasAnimated) {
+      sessionStorage.setItem("navbarAnimated", "true");
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHasAnimated(true);
+    }
+  }, [hasAnimated]);
+
   return (
     <>
       <motion.header
-        initial={{
-          opacity: 0,
-          y: -12,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
+        initial={hasAnimated ? false : { opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
           duration: 0.5,
           delay: 0.1,
@@ -58,136 +64,56 @@ const Navbar = () => {
               damping: 24,
               mass: 0.8,
             }}
-            className={`
-              mx-auto mt-5
-              flex h-20 items-center justify-between
-              rounded-[28px]
-              border px-7
-              will-change-transform
+            className={`mx-auto mt-5 flex h-20 items-center justify-between rounded-[28px] border px-7 will-change-transform ${
+              scrolled
+                ? `
+                  border-slate-200/70
+                  bg-white/80
+                  backdrop-blur-2xl
+                  shadow-[0_18px_50px_rgba(15,23,42,0.08)]
 
-              ${
-                scrolled
-                  ? `
-                    border-slate-200/70
-                    bg-white/80
-                    backdrop-blur-2xl
-                    shadow-[0_18px_50px_rgba(15,23,42,0.08)]
+                  dark:border-slate-700/70
+                  dark:bg-slate-900/80
+                  dark:shadow-[0_18px_50px_rgba(0,0,0,0.4)]
+                `
+                : `
+                  border-white/30
+                  bg-white/60
+                  backdrop-blur-xl
 
-                    dark:border-slate-700/70
-                    dark:bg-slate-900/80
-                    dark:shadow-[0_18px_50px_rgba(0,0,0,0.4)]
-                  `
-                  : `
-                    border-white/30
-                    bg-white/60
-                    backdrop-blur-xl
-
-                    dark:border-slate-700/60
-                    dark:bg-slate-900/60
-                  `
-              }
-            `}
+                  dark:border-slate-700/60
+                  dark:bg-slate-900/60
+                `
+            }`}
           >
-            {/* Logo */}
             <motion.a
               href="#home"
-              whileHover={{
-                y: -1,
-                scale: 1.02,
-              }}
-              whileTap={{
-                scale: 0.98,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 18,
-              }}
-              className="
-                text-3xl
-                font-black
-                tracking-tight
-                text-slate-900
-                dark:text-white
-              "
+              whileHover={{ y: -1, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="text-3xl font-black tracking-tight text-slate-900 dark:text-white"
             >
               Sagor<span className="text-blue-600">.</span>
             </motion.a>
 
-            {/* Desktop Menu */}
             <DesktopMenu />
 
             <div className="flex items-center gap-3">
               <ThemeToggle />
 
-              {/* CTA */}
               <motion.a
                 href="#contact"
-                whileHover={{
-                  y: -2,
-                  scale: 1.02,
-                }}
-                whileTap={{
-                  scale: 0.98,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 350,
-                  damping: 20,
-                }}
-                className="
-                  hidden md:flex
-                  items-center
-                  justify-center
-                  rounded-2xl
-                  bg-gradient-to-r
-                  from-blue-600
-                  to-cyan-500
-                  px-6 py-3
-                  font-semibold
-                  text-white
-                  shadow-lg
-                  shadow-blue-500/20
-
-                  hover:shadow-xl
-                  hover:shadow-blue-500/30
-
-                  dark:shadow-blue-900/30
-                "
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="hidden rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 md:flex"
               >
                 Let's Talk
               </motion.a>
 
-              {/* Mobile Menu */}
               <motion.button
                 type="button"
                 onClick={() => setOpen(true)}
-                whileHover={{
-                  scale: 1.04,
-                }}
-                whileTap={{
-                  scale: 0.92,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 500,
-                  damping: 22,
-                }}
-                className="
-                  rounded-xl
-                  p-2
-                  text-2xl
-                  text-slate-700
-                  transition-colors
-                  duration-200
-
-                  hover:bg-slate-100
-
-                  dark:text-slate-200
-                  dark:hover:bg-slate-800
-
-                  lg:hidden
-                "
+                whileTap={{ scale: 0.92 }}
+                className="rounded-xl p-2 text-2xl text-slate-700 transition-colors duration-200 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800 lg:hidden"
                 aria-label="Open menu"
               >
                 <FiMenu />
