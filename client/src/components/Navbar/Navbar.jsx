@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FiDownload, FiMenu } from "react-icons/fi";
+import { FiMenu } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 import ThemeToggle from "./ThemeToggle";
@@ -16,20 +16,25 @@ const Navbar = () => {
       setScrolled(window.scrollY > 40);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
 
-    return () =>
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
       window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
-          duration: 0.7,
-          ease: "easeOut",
+          duration: 0.45,
+          ease: [0.22, 1, 0.36, 1],
         }}
         className="fixed inset-x-0 top-0 z-50"
       >
@@ -39,9 +44,10 @@ const Navbar = () => {
               width: scrolled ? "100%" : "96%",
             }}
             transition={{
-              duration: 0.35,
+              duration: 0.4,
+              ease: [0.22, 1, 0.36, 1],
             }}
-            className={`mx-auto mt-5 flex h-20 items-center justify-between rounded-[28px] border px-7 transition-all duration-300
+            className={`mx-auto mt-5 flex h-20 items-center justify-between rounded-[28px] border px-7
             ${
               scrolled
                 ? `
@@ -53,7 +59,7 @@ const Navbar = () => {
                 dark:border-slate-700/70
                 dark:bg-slate-900/80
                 dark:shadow-[0_20px_60px_rgba(0,0,0,.45)]
-              `
+                `
                 : `
                 border-white/30
                 bg-white/60
@@ -61,83 +67,39 @@ const Navbar = () => {
 
                 dark:border-slate-700/60
                 dark:bg-slate-900/60
-              `
+                `
             }`}
           >
             {/* Logo */}
-
             <motion.a
               href="#home"
-              whileHover={{
-                scale: 1.05,
-              }}
-              whileTap={{
-                scale: 0.95,
-              }}
-              className="text-3xl font-black tracking-tight text-slate-900 transition-colors duration-300 dark:text-white"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="text-3xl font-black tracking-tight text-slate-900 dark:text-white"
             >
               Sagor
               <span className="text-blue-600">.</span>
             </motion.a>
 
             {/* Desktop Menu */}
-
             <DesktopMenu />
 
-            {/* Right */}
-
             <div className="flex items-center gap-3">
-              {/* Theme */}
-
               <ThemeToggle />
 
-              {/* Resume */}
-
-              {/* <motion.a
-                whileHover={{
-                  y: -2,
-                }}
-                whileTap={{
-                  scale: 0.97,
-                }}
-                href="/resume.pdf"
-                download
-                className="
-                  hidden md:flex
-                  items-center gap-2
-                  rounded-2xl
-                  border
-                  border-slate-200
-                  bg-white
-                  px-5 py-3
-                  font-medium
-                  text-slate-700
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-0.5
-                  hover:border-blue-500
-                  hover:text-blue-600
-
-                  dark:border-slate-700
-                  dark:bg-slate-900
-                  dark:text-slate-300
-                  dark:hover:border-blue-500
-                  dark:hover:text-blue-400
-                "
-              >
-                <FiDownload />
-                Resume
-              </motion.a> */}
-
               {/* CTA */}
-
               <motion.a
                 whileHover={{
-                  scale: 1.04,
+                  y: -2,
+                  scale: 1.02,
                 }}
                 whileTap={{
-                  scale: 0.97,
+                  scale: 0.98,
+                }}
+                transition={{
+                  duration: 0.2,
+                  ease: "easeOut",
                 }}
                 href="#contact"
                 className="
@@ -151,32 +113,26 @@ const Navbar = () => {
                   text-white
                   shadow-lg
                   shadow-blue-500/20
-                  transition-all
-                  duration-300
 
-                  hover:-translate-y-0.5
                   hover:shadow-blue-500/40
-
                   dark:shadow-blue-900/40
                 "
               >
                 Let's Talk
               </motion.a>
 
-              {/* Mobile */}
-
+              {/* Mobile Menu */}
               <motion.button
-                whileTap={{
-                  scale: 0.9,
-                }}
+                whileTap={{ scale: 0.92 }}
+                transition={{ duration: 0.15 }}
                 onClick={() => setOpen(true)}
                 className="
                   rounded-xl
                   p-2
                   text-2xl
                   text-slate-700
-                  transition-all
-                  duration-300
+                  transition-colors
+                  duration-200
 
                   hover:bg-slate-100
 

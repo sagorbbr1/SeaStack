@@ -29,7 +29,7 @@ function App() {
       <ThemeProvider>
         <ActiveSectionProvider>
           <Loader />
-          <CustomCursor />
+          {/* <CustomCursor /> */}
            <ScrollToHash />
           <ScrollProgress />
 
