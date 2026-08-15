@@ -30,11 +30,18 @@ const Navbar = () => {
   return (
     <>
       <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{
+          opacity: 0,
+          y: -12,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
         transition={{
-          duration: 0.45,
-          ease: [0.22, 1, 0.36, 1],
+          duration: 0.5,
+          delay: 0.1,
+          ease: [0.16, 1, 0.3, 1],
         }}
         className="fixed inset-x-0 top-0 z-50"
       >
@@ -42,44 +49,69 @@ const Navbar = () => {
           <motion.nav
             animate={{
               width: scrolled ? "100%" : "96%",
+              scale: scrolled ? 0.985 : 1,
+              y: scrolled ? -2 : 0,
             }}
             transition={{
-              duration: 0.4,
-              ease: [0.22, 1, 0.36, 1],
+              type: "spring",
+              stiffness: 180,
+              damping: 24,
+              mass: 0.8,
             }}
-            className={`mx-auto mt-5 flex h-20 items-center justify-between rounded-[28px] border px-7
-            ${
-              scrolled
-                ? `
-                border-slate-200/70
-                bg-white/80
-                backdrop-blur-2xl
-                shadow-[0_20px_60px_rgba(15,23,42,.08)]
+            className={`
+              mx-auto mt-5
+              flex h-20 items-center justify-between
+              rounded-[28px]
+              border px-7
+              will-change-transform
 
-                dark:border-slate-700/70
-                dark:bg-slate-900/80
-                dark:shadow-[0_20px_60px_rgba(0,0,0,.45)]
-                `
-                : `
-                border-white/30
-                bg-white/60
-                backdrop-blur-xl
+              ${
+                scrolled
+                  ? `
+                    border-slate-200/70
+                    bg-white/80
+                    backdrop-blur-2xl
+                    shadow-[0_18px_50px_rgba(15,23,42,0.08)]
 
-                dark:border-slate-700/60
-                dark:bg-slate-900/60
-                `
-            }`}
+                    dark:border-slate-700/70
+                    dark:bg-slate-900/80
+                    dark:shadow-[0_18px_50px_rgba(0,0,0,0.4)]
+                  `
+                  : `
+                    border-white/30
+                    bg-white/60
+                    backdrop-blur-xl
+
+                    dark:border-slate-700/60
+                    dark:bg-slate-900/60
+                  `
+              }
+            `}
           >
             {/* Logo */}
             <motion.a
               href="#home"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="text-3xl font-black tracking-tight text-slate-900 dark:text-white"
+              whileHover={{
+                y: -1,
+                scale: 1.02,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 18,
+              }}
+              className="
+                text-3xl
+                font-black
+                tracking-tight
+                text-slate-900
+                dark:text-white
+              "
             >
-              Sagor
-              <span className="text-blue-600">.</span>
+              Sagor<span className="text-blue-600">.</span>
             </motion.a>
 
             {/* Desktop Menu */}
@@ -90,6 +122,7 @@ const Navbar = () => {
 
               {/* CTA */}
               <motion.a
+                href="#contact"
                 whileHover={{
                   y: -2,
                   scale: 1.02,
@@ -98,12 +131,14 @@ const Navbar = () => {
                   scale: 0.98,
                 }}
                 transition={{
-                  duration: 0.2,
-                  ease: "easeOut",
+                  type: "spring",
+                  stiffness: 350,
+                  damping: 20,
                 }}
-                href="#contact"
                 className="
                   hidden md:flex
+                  items-center
+                  justify-center
                   rounded-2xl
                   bg-gradient-to-r
                   from-blue-600
@@ -114,8 +149,10 @@ const Navbar = () => {
                   shadow-lg
                   shadow-blue-500/20
 
-                  hover:shadow-blue-500/40
-                  dark:shadow-blue-900/40
+                  hover:shadow-xl
+                  hover:shadow-blue-500/30
+
+                  dark:shadow-blue-900/30
                 "
               >
                 Let's Talk
@@ -123,9 +160,19 @@ const Navbar = () => {
 
               {/* Mobile Menu */}
               <motion.button
-                whileTap={{ scale: 0.92 }}
-                transition={{ duration: 0.15 }}
+                type="button"
                 onClick={() => setOpen(true)}
+                whileHover={{
+                  scale: 1.04,
+                }}
+                whileTap={{
+                  scale: 0.92,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 22,
+                }}
                 className="
                   rounded-xl
                   p-2
@@ -141,6 +188,7 @@ const Navbar = () => {
 
                   lg:hidden
                 "
+                aria-label="Open menu"
               >
                 <FiMenu />
               </motion.button>
@@ -149,10 +197,7 @@ const Navbar = () => {
         </Container>
       </motion.header>
 
-      <MobileMenu
-        open={open}
-        setOpen={setOpen}
-      />
+      <MobileMenu open={open} setOpen={setOpen} />
     </>
   );
 };
