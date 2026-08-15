@@ -22,6 +22,7 @@ import SingleBlog from "./pages/SingleBlog/SingleBlog";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import SkillsPage from "./pages/SkillsPage/SkillsPage";
 import ScrollToHash from "./components/ui/ScrollToHash";
+import BlogPage from "./pages/BlogPage/BlogPage";
 function App() {
   return (
     <BrowserRouter>
@@ -37,6 +38,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/skills" element={<SkillsPage />} />
+            <Route path="/blogs" element={<BlogPage />} />
             <Route
   path="/blog/:slug"
   element={<SingleBlog />}
