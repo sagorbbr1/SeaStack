@@ -8,7 +8,10 @@ const DesktopMenu = () => {
   const location = useLocation();
 
   return (
-    <div className="hidden items-center gap-2 lg:flex">
+    <motion.div
+      initial={false}
+      className="hidden items-center gap-2 lg:flex"
+    >
       {navLinks.map((item) => {
         const isSectionLink = item.href.includes("#");
 
@@ -26,7 +29,7 @@ const DesktopMenu = () => {
             to={item.href}
             className={`
               relative rounded-xl px-5 py-3 font-medium
-              transition-all duration-300
+              transition-colors duration-200
               ${
                 active
                   ? "text-blue-600 dark:text-blue-400"
@@ -40,24 +43,42 @@ const DesktopMenu = () => {
               <>
                 <motion.div
                   layoutId="nav-bg"
+                  initial={false}
                   transition={{
                     type: "spring",
-                    stiffness: 400,
-                    damping: 30,
+                    stiffness: 300,
+                    damping: 28,
                   }}
-                  className="absolute inset-0 -z-10 rounded-xl bg-blue-50 dark:bg-blue-500/10"
+                  className="
+                    absolute inset-0 -z-10
+                    rounded-xl
+                    bg-blue-50
+                    dark:bg-blue-500/10
+                  "
                 />
 
                 <motion.div
                   layoutId="nav-line"
-                  className="absolute bottom-1 left-4 right-4 h-[3px] rounded-full bg-blue-600 dark:bg-blue-500/10"
+                  initial={false}
+                  transition={{
+                    duration: 0.22,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="
+                    absolute bottom-1
+                    left-4 right-4
+                    h-[3px]
+                    rounded-full
+                    bg-blue-600
+                    dark:bg-blue-400
+                  "
                 />
               </>
             )}
           </Link>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 
