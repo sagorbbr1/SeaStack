@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FaGlobe } from "react-icons/fa";
 
 const Loader = () => {
   const [loading, setLoading] = useState(true);
@@ -19,30 +18,38 @@ const Loader = () => {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="fixed inset-0 z-[99999] flex items-center justify-center bg-[#EEF1F5]"
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="
+            fixed inset-0 z-[99999]
+            flex items-center justify-center
+            bg-[#EEF1F5]
+            dark:bg-slate-950
+          "
         >
-          <motion.div
-            animate={{
-              rotateY: [0, 360],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              rotateY: {
-                duration: 1.8,
-                repeat: Infinity,
-                ease: "linear",
-              },
-              scale: {
-                duration: 1.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-            }}
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <FaGlobe className="text-5xl text-slate-800" />
-          </motion.div>
+          <div className="flex items-center gap-2">
+            {[0, 1, 2].map((index) => (
+              <motion.div
+                key={index}
+                animate={{
+                  scaleY: [0.45, 1.4, 0.45],
+                  opacity: [0.35, 1, 0.35],
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.12,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="
+                  h-8 w-1.5
+                  origin-center
+                  rounded-full
+                  bg-slate-900
+                  dark:bg-white
+                "
+              />
+            ))}
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
