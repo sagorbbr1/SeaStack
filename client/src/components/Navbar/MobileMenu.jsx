@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiArrowRight, FiX } from "react-icons/fi";
+import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "./navLinks";
 import { useActiveSection } from "../../context/ActiveSectionContext";
 
@@ -54,13 +55,13 @@ const item = {
 
 const MobileMenu = ({ open, setOpen }) => {
   const { activeSection } = useActiveSection();
+  const location = useLocation();
 
   return (
     <AnimatePresence>
       {open && (
         <>
           {/* Overlay */}
-
           <motion.div
             variants={backdrop}
             initial="hidden"
@@ -71,7 +72,6 @@ const MobileMenu = ({ open, setOpen }) => {
           />
 
           {/* Drawer */}
-
           <motion.aside
             variants={drawer}
             initial="hidden"
@@ -80,23 +80,19 @@ const MobileMenu = ({ open, setOpen }) => {
             className="
               fixed right-0 top-0 z-50
               flex h-screen w-[320px] flex-col overflow-hidden
-
               border-l border-slate-200
               bg-white/95
               backdrop-blur-xl
               shadow-[0_20px_80px_rgba(15,23,42,.15)]
-
               dark:border-slate-800
               dark:bg-slate-950/95
               dark:shadow-[0_20px_80px_rgba(0,0,0,.5)]
             "
           >
             {/* Glow */}
-
             <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl dark:bg-blue-500/10" />
 
             {/* Header */}
-
             <div className="relative flex items-center justify-between border-b border-slate-200 px-6 py-6 dark:border-slate-800">
               <div>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -117,14 +113,9 @@ const MobileMenu = ({ open, setOpen }) => {
                 }}
                 onClick={() => setOpen(false)}
                 className="
-                  rounded-xl
-                  border border-slate-200
-                  p-2
-                  text-slate-700
-                  transition-all
-
+                  rounded-xl border border-slate-200 p-2
+                  text-slate-700 transition-all
                   hover:bg-slate-100
-
                   dark:border-slate-700
                   dark:text-slate-200
                   dark:hover:bg-slate-800
@@ -135,45 +126,54 @@ const MobileMenu = ({ open, setOpen }) => {
             </div>
 
             {/* Links */}
-
             <div className="relative flex-1 px-5 py-8">
               {navLinks.map((link) => {
-                const active =
-                  activeSection === link.href.replace("#", "");
+                const isSectionLink = link.href.includes("#");
+
+                const sectionId = isSectionLink
+                  ? link.href.split("#")[1]
+                  : "";
+
+                const active = isSectionLink
+                  ? location.pathname === "/" &&
+                    activeSection === sectionId
+                  : location.pathname === link.href;
 
                 return (
-                  <motion.a
+                  <motion.div
                     key={link.name}
                     variants={item}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
                     whileHover={{ x: 6 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`group mb-2 flex items-center justify-between rounded-2xl px-5 py-4 transition-all duration-300 ${
-                      active
-                        ? "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"
-                        : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
-                    }`}
                   >
-                    <span className="font-medium">
-                      {link.name}
-                    </span>
-
-                    <motion.div
-                      animate={{
-                        x: active ? 0 : -4,
-                        opacity: active ? 1 : 0,
-                      }}
+                    <Link
+                      to={link.href}
+                      onClick={() => setOpen(false)}
+                      className={`group mb-2 flex items-center justify-between rounded-2xl px-5 py-4 transition-all duration-300 ${
+                        active
+                          ? "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"
+                          : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+                      }`}
                     >
-                      <FiArrowRight />
-                    </motion.div>
-                  </motion.a>
+                      <span className="font-medium">
+                        {link.name}
+                      </span>
+
+                      <motion.div
+                        animate={{
+                          x: active ? 0 : -4,
+                          opacity: active ? 1 : 0,
+                        }}
+                      >
+                        <FiArrowRight />
+                      </motion.div>
+                    </Link>
+                  </motion.div>
                 );
               })}
             </div>
 
             {/* Footer */}
-
             <motion.div
               initial={{
                 opacity: 0,
@@ -187,16 +187,9 @@ const MobileMenu = ({ open, setOpen }) => {
                 delay: 0.35,
               }}
               className="
-                m-5
-                rounded-3xl
-                bg-gradient-to-r
-                from-blue-600
-                to-cyan-500
-                p-5
-                text-white
-                shadow-xl
-                shadow-blue-500/20
-
+                m-5 rounded-3xl
+                bg-gradient-to-r from-blue-600 to-cyan-500
+                p-5 text-white shadow-xl shadow-blue-500/20
                 dark:shadow-blue-900/30
               "
             >

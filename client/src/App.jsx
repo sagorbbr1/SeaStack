@@ -21,6 +21,7 @@ import AdminBlogForm from "./pages/admin/AdminBlogForm";
 import SingleBlog from "./pages/SingleBlog/SingleBlog";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import SkillsPage from "./pages/SkillsPage/SkillsPage";
+import ScrollToHash from "./components/ui/ScrollToHash";
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +29,7 @@ function App() {
         <ActiveSectionProvider>
           <Loader />
           <CustomCursor />
+           <ScrollToHash />
           <ScrollProgress />
 
           <Routes>
