@@ -13,12 +13,19 @@ const Loader = () => {
   }, []);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {loading && (
         <motion.div
+          key="loader"
           initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{
+            opacity: {
+              duration: 0.4,
+              ease: "easeOut",
+            },
+          }}
           className="
             fixed inset-0 z-[99999]
             flex items-center justify-center
@@ -30,6 +37,7 @@ const Loader = () => {
             {[0, 1, 2].map((index) => (
               <motion.div
                 key={index}
+                initial={{ scaleY: 0.45, opacity: 0.35 }}
                 animate={{
                   scaleY: [0.45, 1.4, 0.45],
                   opacity: [0.35, 1, 0.35],
@@ -38,6 +46,7 @@ const Loader = () => {
                   duration: 0.8,
                   delay: index * 0.12,
                   repeat: Infinity,
+                  repeatType: "loop",
                   ease: "easeInOut",
                 }}
                 className="
